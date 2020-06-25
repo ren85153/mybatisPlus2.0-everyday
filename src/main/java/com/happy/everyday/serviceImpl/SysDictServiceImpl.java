@@ -45,7 +45,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
 		}
         if(baseMapper.selectPage(page, queryWrapper) != null) {
             page.setRecords(baseMapper.selectPage(page, queryWrapper));
-            page.setTotal(baseMapper.selectPage(page, queryWrapper).size());
+            page.setTotal(baseMapper.selectCount(queryWrapper));
         }
         return page;
     }

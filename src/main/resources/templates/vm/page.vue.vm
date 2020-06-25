@@ -176,14 +176,14 @@
         let param = {}
         param.condition = this.searchForm
         param.current = this.currentPage
-        param.size = this.val
+        param.size = val
         this.getListByPageParam(param);
       },
       handleCurrentChange(val) {
         // console.log(`当前页: ${val}`);
         let param = {}
         param.condition = this.searchForm
-        param.current = this.val
+        param.current = val
         param.size = this.pagesize
         this.getListByPageParam(param);
       },

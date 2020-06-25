@@ -64,8 +64,8 @@ mybatis-plus:
 logging:
   level:
     root: ERROR
-    org.springframework.web: DEBUG
-    com.happy.everyday.mapper: info
+    org.springframework.web: INFO
+    com.happy.everyday.mapper: DEBUG
 #日志文件输出路径
   file:
     /logs/assets.log

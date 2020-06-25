@@ -1,4 +1,5 @@
 package com.happy.everyday.entity;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import java.util.Date;
@@ -22,6 +23,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Data;
+
+import static com.baomidou.mybatisplus.enums.FieldStrategy.NOT_NULL;
+
 /**
 * <p>
 * SysMenu对象
@@ -37,7 +41,7 @@ public class SysMenu extends Model<SysMenu> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     @ApiModelProperty(value = "菜单名称")
-    @TableField("menu_name")
+    @TableField(value = "menu_name", strategy=NOT_NULL)
     private String menuName;
     @ApiModelProperty(value = "菜单类型")
     @TableField("menu_type")
@@ -58,9 +62,10 @@ public class SysMenu extends Model<SysMenu> {
     @TableField("menu_order")
     private String menuOrder;
     @ApiModelProperty(value = "状态")
+    @TableField(value = "status", fill = FieldFill.INSERT)
     private String status;
     @ApiModelProperty(value = "创建时间")
-    @TableField("create_time")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
     @ApiModelProperty(value = "创建人id")
     @TableField("create_id")
@@ -69,7 +74,7 @@ public class SysMenu extends Model<SysMenu> {
     @TableField("create_name")
     private String createName;
     @ApiModelProperty(value = "修改时间")
-    @TableField("update_time")
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
     @ApiModelProperty(value = "修改人id")
     @TableField("update_id")

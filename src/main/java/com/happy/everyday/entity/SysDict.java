@@ -1,4 +1,5 @@
 package com.happy.everyday.entity;
+import com.baomidou.mybatisplus.enums.FieldFill;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import java.util.Date;
@@ -22,6 +23,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import lombok.Data;
+
+import static com.baomidou.mybatisplus.enums.FieldStrategy.NOT_NULL;
+
 /**
 * <p>
 * SysDict对象
@@ -37,24 +41,25 @@ public class SysDict extends Model<SysDict> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     @ApiModelProperty(value = "字典名称")
-    @TableField("dict_name")
+    @TableField(value = "dict_name", strategy=NOT_NULL)
     private String dictName;
     @ApiModelProperty(value = "字典编码")
-    @TableField("dict_code")
+    @TableField(value = "dict_code", strategy=NOT_NULL)
     private String dictCode;
     @ApiModelProperty(value = "字典类型")
     @TableField("dict_type")
     private String dictType;
     @ApiModelProperty(value = "组名")
-    @TableField("group_name")
+    @TableField(value = "group_name", strategy=NOT_NULL)
     private String groupName;
     @ApiModelProperty(value = "组编码")
-    @TableField("group_code")
+    @TableField(value = "group_code", strategy=NOT_NULL)
     private String groupCode;
     @ApiModelProperty(value = "父级id")
-    @TableField("parent_id")
+    @TableField(value = "parent_id", strategy=NOT_NULL)
     private Integer parentId;
     @ApiModelProperty(value = "状态")
+    @TableField(value = "status", fill = FieldFill.INSERT)
     private String status;
     @ApiModelProperty(value = "排序")
     @TableField("dict_order")
@@ -62,7 +67,7 @@ public class SysDict extends Model<SysDict> {
     @ApiModelProperty(value = "备注")
     private String remark;
     @ApiModelProperty(value = "创建时间")
-    @TableField("create_time")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
     @ApiModelProperty(value = "创建人id")
     @TableField("create_id")
@@ -71,7 +76,7 @@ public class SysDict extends Model<SysDict> {
     @TableField("create_name")
     private String createName;
     @ApiModelProperty(value = "修改时间")
-    @TableField("update_time")
+    @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
     @ApiModelProperty(value = "修改人id")
     @TableField("update_id")
