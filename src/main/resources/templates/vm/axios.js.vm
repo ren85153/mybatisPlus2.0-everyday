@@ -1,0 +1,56 @@
+import base from '@/api/base' // 导入接口域名列表
+import axios from '@/libs/http' // 导入http中创建的axios实例
+//  axios请求
+const ${entity}Axios = {
+
+
+  list (param) {
+    return axios({
+      url: `\$\{base.${entity}List}`,
+      method: 'post',
+      data: param
+    })
+  },
+  page (param) {
+    return axios({
+      url: `\$\{base.${entity}Page}`,
+      method: 'post',
+      data: param
+    })
+  },
+  get (param) {
+    return axios({
+      url: `\$\{base.${entity}Get}?id=` + param,
+      method: 'get',
+      data: param
+    })
+  },
+  add (param) {
+    return axios({
+      url: `\$\{base.${entity}Add}`,
+      method: 'post',
+      data: param
+    })
+  },
+  modify (param) {
+    return axios({
+      url: `\$\{base.${entity}Modify}`,
+      method: 'post',
+      data: param
+    })
+  },
+  delete (param) {
+    return axios({
+      url: `\$\{base.${entity}Delete}?id=` + param,
+      method: 'get',
+      data: param
+    })
+  }
+}
+
+export default ${entity}Axios
+
+
+
+
+

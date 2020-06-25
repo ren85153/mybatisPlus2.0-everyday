@@ -1,0 +1,42 @@
+#set( $basePackage = "com.happy.everyday" )
+package ${basePackage}.reqVo;
+
+import ${package.Entity}.${entity};
+#foreach($pkg in ${table.importPackages})
+#end
+#if(${swagger2})
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+#end
+#if(${entityLombokModel})
+#end
+import lombok.Data;
+import java.io.Serializable;
+import java.util.Date;
+import ${basePackage}.base.BaseReq;
+import io.swagger.annotations.ApiModel;
+/**
+* <p>
+* Add${entity}Req 请求对象
+* </p>
+*
+* @author ${author}
+* @since ${date}
+*/
+@Data
+@ApiModel(value = "${entity}新增请求对象", description = "$!{table.comment}")
+public class Add${entity}Req extends BaseReq<${entity}> implements Serializable {
+    private static final long serialVersionUID = 1L;
+#*    #foreach($field in ${table.fields})
+
+    @ApiModelProperty(value = "${field.comment}")
+    #if(${field.propertyType}=="LocalDate")
+    private Date ${field.propertyName};
+    #else
+    private ${field.propertyType} ${field.propertyName};
+    #end
+
+#end
+*#
+
+}

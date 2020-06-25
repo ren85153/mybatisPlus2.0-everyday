@@ -1,0 +1,66 @@
+
+import {formDatetime} from '../../components/utils/formdata';
+
+// ${entity}表格column
+var ${entity}Table = {}
+
+${entity}Table.column  = [
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+  	//{ label: "", prop: "${field.propertyName}",  operate: false },
+  		#else
+	  {
+	    #if("$!field.comment" != "")
+	  	label: "${field.comment}",
+	    #end
+	  	prop: "${field.propertyName}",
+	  	operate: false,
+	    #if(${field.propertyType}=="LocalDate")
+	    //时间格式转换
+		formatter: (value, column) => {
+			let time = formDatetime(value, column);
+			return time;
+		},
+	    #end
+	  },
+    #end
+
+#end
+]
+
+${entity}Table.tableData  = []
+${entity}Table.searchForm   = {
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+  	//{ label: "", prop: "${field.propertyName}",  operate: false },
+  		#else
+	  ${field.propertyName}: '',
+    #end
+#end
+}
+${entity}Table.createForm   = {
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+  	//{ label: "", prop: "${field.propertyName}",  operate: false },
+  		#else
+	  ${field.propertyName}: '',
+    #end
+#end
+}
+
+${entity}Table.rules =  {
+#foreach($field in ${table.fields})
+    #if(${field.keyFlag})
+  	//{ label: "", prop: "${field.propertyName}",  operate: false },
+  		#else
+	  ${field.propertyName}: [
+	    { required: true, message: '${field.comment}', trigger: 'blur' },
+	  ],
+    #end
+#end
+}
+
+
+export {
+	${entity}Table
+}

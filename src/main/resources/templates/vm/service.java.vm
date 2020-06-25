@@ -1,0 +1,30 @@
+package ${package.Service};
+
+import java.util.List;
+import java.util.Date;
+#set($basePackage = "com.happy.everyday") 
+import ${basePackage}.reqVo.Add${entity}Req;
+import ${basePackage}.reqVo.Update${entity}Req;
+import ${basePackage}.reqVo.List${entity}Req;
+import ${basePackage}.reqVo.Page${entity}Req;
+import ${package.Entity}.${entity};
+import com.baomidou.mybatisplus.plugins.Page;
+
+import ${superServiceClassPackage};
+/**
+* <p>
+* ${entity}服务类
+* </p>
+*
+* @author ${author}
+* @since ${date}
+*/
+
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}>  {
+    public List<${entity}> list(List${entity}Req req);
+    public Page<${entity}> page(Page${entity}Req req);
+    public int add(Add${entity}Req req);
+    public int modify(Update${entity}Req req);
+    public int delete(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end);
+    public ${entity} get(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end);
+}

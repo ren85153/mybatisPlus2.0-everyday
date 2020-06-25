@@ -1,0 +1,33 @@
+#set( $basePackage = "com.happy.everyday" )
+package ${basePackage}.reqVo;
+
+import ${package.Entity}.${entity};
+#foreach($pkg in ${table.importPackages})
+#end
+#if(${swagger2})
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+#end
+#if(${entityLombokModel})
+#end
+import lombok.Data;
+import java.io.Serializable;
+import java.util.Date;
+import ${basePackage}.base.*;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.plugins.Page;
+/**
+* <p>
+* Page${entity}Req对象
+* </p>
+*
+* @author ${author}
+* @since ${date}
+*/
+@Data
+@ApiModel(value = "List${entity}列表请求对象", description = "$!{table.comment}")
+public class Page${entity}Req extends Page<${entity}> implements Serializable {
+	private static final long serialVersionUID = 1L;
+    private ${entity} t;
+}

@@ -1,0 +1,32 @@
+#set( $basePackage = "com.happy.everyday" )
+package ${basePackage}.reqVo;
+
+import ${package.Entity}.${entity};
+#foreach($pkg in ${table.importPackages})
+#end
+#if(${swagger2})
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+#end
+#if(${entityLombokModel})
+#end
+import lombok.Data;
+import java.io.Serializable;
+import java.util.Date;
+import ${basePackage}.base.BaseReq;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+/**
+* <p>
+* List${entity}Req对象
+* </p>
+*
+* @author ${author}
+* @since ${date}
+*/
+@Data
+@ApiModel(value = "List${entity}列表请求对象", description = "$!{table.comment}")
+public class List${entity}Req extends BaseReq<${entity}> implements Serializable {
+    @ApiModelProperty(value = "关键字查询", required = false)
+    private String keyword;
+}

@@ -1,0 +1,81 @@
+package ${package.ServiceImpl};
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import java.util.List;
+import java.util.Date;
+#set($basePackage = "com.happy.everyday") 
+import ${basePackage}.base.BaseResult;
+import ${basePackage}.reqVo.Add${entity}Req;
+import ${basePackage}.reqVo.Update${entity}Req;
+import ${basePackage}.reqVo.List${entity}Req;
+import ${basePackage}.reqVo.Page${entity}Req;
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import ${basePackage}.base.BasePage;
+
+/**
+* <p>
+* ${entity}服务类
+* </p>
+*
+* @author ${author}
+* @since ${date}
+*/
+@Service
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+    public List<${entity}> list(List${entity}Req req){
+        String keyword = req.getKeyword();
+        EntityWrapper<${entity}> queryWrapper = new EntityWrapper<>();
+        if (!StringUtils.isEmpty(keyword)) {
+            queryWrapper.like("", req.getKeyword());
+        }
+        return baseMapper.selectList(queryWrapper);
+    }
+    public Page page(Page${entity}Req req){
+    	${entity} t = req.getT();
+        Page page = new Page<>(req.getCurrent(), req.getSize());
+        EntityWrapper<${entity}> queryWrapper = new EntityWrapper<>();
+		if(null != t){
+			//条件
+		}
+        if(baseMapper.selectPage(page, queryWrapper) != null) {
+            page.setRecords(baseMapper.selectPage(page, queryWrapper));
+            page.setTotal(baseMapper.selectPage(page, queryWrapper).size());
+        }
+        return page;
+    }
+    public int add(Add${entity}Req req){
+        ${entity} data = new  ${entity}();
+        BeanUtils.copyProperties(req.getT(), data);
+        #foreach($field in ${table.fields})
+            #if(${field.propertyName.equals("createTime")})
+        data.set${field.capitalName}(new Date());
+            #end
+        #end
+        baseMapper.insert(data);
+        return #foreach($field in ${table.fields})#if(${field.keyFlag})data.get${field.capitalName}()#end#end;
+    }
+    public int modify(Update${entity}Req req){
+        ${entity} data = new  ${entity}();
+        BeanUtils.copyProperties(req.getT(), data);
+        #foreach($field in ${table.fields})
+           #if(${field.propertyName.equals("updateTime")} || ${field.propertyName.equals("modifyTime")})
+        data.set${field.capitalName}(new Date());
+           #end
+        #end
+        return baseMapper.updateById(data);
+    }
+    public int delete(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end){
+        return baseMapper.deleteById(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}#end#end);
+
+    }
+    public ${entity} get(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end){
+        return baseMapper.selectById(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}#end#end);
+    }
+}

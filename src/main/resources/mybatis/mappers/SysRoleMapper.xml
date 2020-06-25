@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.happy.everyday.mapper.SysRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.happy.everyday.entity.SysRole">
+        <id column="id" property="id" />
+        <result column="role_name" property="roleName" />
+        <result column="role_type" property="roleType" />
+        <result column="role_code" property="roleCode" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="create_id" property="createId" />
+        <result column="create_name" property="createName" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_id" property="updateId" />
+        <result column="update_name" property="updateName" />
+        <result column="remark" property="remark" />
+        <result column="reserve" property="reserve" />
+        <result column="reserve1" property="reserve1" />
+        <result column="reserve2" property="reserve2" />
+        <result column="reserve3" property="reserve3" />
+        <result column="reserve4" property="reserve4" />
+        <result column="reserve5" property="reserve5" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, role_name AS roleName, role_type AS roleType, role_code AS roleCode, status, create_time AS createTime, create_id AS createId, create_name AS createName, update_time AS updateTime, update_id AS updateId, update_name AS updateName, remark, reserve, reserve1, reserve2, reserve3, reserve4, reserve5
+    </sql>
+
+</mapper>

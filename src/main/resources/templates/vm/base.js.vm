@@ -1,0 +1,18 @@
+/**
+ * 接口域名的管理
+ */
+
+// const baseUrl = 'http:127.0.0.1:8888/api'
+const baseUrl = '/api'
+const base = {
+  baseUrl: baseUrl,
+  // 获取所有字典
+  ${entity}List: baseUrl + '/${entity}/list',
+  ${entity}Page: baseUrl + '/${entity}/page',
+  ${entity}Get: baseUrl + '/${entity}/get',
+  ${entity}Add: baseUrl + '/${entity}/add',
+  ${entity}Modify: baseUrl + '/${entity}/modify',
+  ${entity}Delete: baseUrl + '/${entity}/delete',
+}
+
+export default base
