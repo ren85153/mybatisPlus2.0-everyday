@@ -53,22 +53,28 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     public int add(Add${entity}Req req){
         ${entity} data = new  ${entity}();
         BeanUtils.copyProperties(req.getT(), data);
+        // 配置了填充器就不需要手动设置
+        #*
         #foreach($field in ${table.fields})
             #if(${field.propertyName.equals("createTime")})
         data.set${field.capitalName}(new Date());
             #end
         #end
+        *#
         baseMapper.insert(data);
         return #foreach($field in ${table.fields})#if(${field.keyFlag})data.get${field.capitalName}()#end#end;
     }
     public int modify(Update${entity}Req req){
         ${entity} data = new  ${entity}();
         BeanUtils.copyProperties(req.getT(), data);
+        // 配置了填充器就不需要手动设置
+        #*
         #foreach($field in ${table.fields})
            #if(${field.propertyName.equals("updateTime")} || ${field.propertyName.equals("modifyTime")})
         data.set${field.capitalName}(new Date());
            #end
         #end
+        *#
         return baseMapper.updateById(data);
     }
     public int delete(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end){

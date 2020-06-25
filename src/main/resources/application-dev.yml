@@ -52,7 +52,7 @@ mybatis-plus:
     #logic-not-delete-value: 0
     #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
     #自定义填充策略接口实现
-    #meta-object-handler: com.baomidou.springboot.MyMetaObjectHandler
+    meta-object-handler: com.happy.everyday.config.handler.MetaHandler
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false

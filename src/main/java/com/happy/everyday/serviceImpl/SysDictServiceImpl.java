@@ -52,14 +52,12 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     public int add(AddSysDictReq req){
         SysDict data = new  SysDict();
         BeanUtils.copyProperties(req.getT(), data);
-        data.setCreateTime(new Date());
         baseMapper.insert(data);
         return data.getId();
     }
     public int modify(UpdateSysDictReq req){
         SysDict data = new  SysDict();
         BeanUtils.copyProperties(req.getT(), data);
-        data.setUpdateTime(new Date());
         return baseMapper.updateById(data);
     }
     public int delete(Integer id){

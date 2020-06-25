@@ -42,7 +42,7 @@ mybatis-plus:
     #驼峰下划线转换
     #db-column-underline: true
     #刷新mapper 调试神器
-    refresh-mapper: true
+#    refresh-mapper: true
     #数据库大写下划线转换
     #capital-mode: true
     # Sequence序列接口实现类配置
@@ -52,7 +52,7 @@ mybatis-plus:
     #logic-not-delete-value: 0
     #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
     #自定义填充策略接口实现
-    #meta-object-handler: com.baomidou.springboot.MyMetaObjectHandler
+    meta-object-handler: com.happy.everyday.config.handler.MetaHandler
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false

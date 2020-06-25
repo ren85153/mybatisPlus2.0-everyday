@@ -2,8 +2,10 @@ package com.happy.everyday;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan({"com.happy.everyday.*"})
 public class EverydayApplication {
 
     public static void main(String[] args) {
