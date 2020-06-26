@@ -19,6 +19,7 @@ import java.util.Date;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.mapper.SqlCondition;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -41,25 +42,25 @@ public class SysDict extends Model<SysDict> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     @ApiModelProperty(value = "字典名称")
-    @TableField(value = "dict_name", strategy=NOT_NULL)
+    @TableField(value = "dict_name", strategy=NOT_NULL,condition = SqlCondition.LIKE)
     private String dictName;
     @ApiModelProperty(value = "字典编码")
-    @TableField(value = "dict_code", strategy=NOT_NULL)
+    @TableField(value = "dict_code", strategy=NOT_NULL,condition = SqlCondition.EQUAL)
     private String dictCode;
     @ApiModelProperty(value = "字典类型")
     @TableField("dict_type")
     private String dictType;
     @ApiModelProperty(value = "组名")
-    @TableField(value = "group_name", strategy=NOT_NULL)
+    @TableField(value = "group_name", strategy=NOT_NULL,condition = SqlCondition.LIKE)
     private String groupName;
     @ApiModelProperty(value = "组编码")
-    @TableField(value = "group_code", strategy=NOT_NULL)
+    @TableField(value = "group_code", strategy=NOT_NULL,condition = SqlCondition.EQUAL)
     private String groupCode;
     @ApiModelProperty(value = "父级id")
-    @TableField(value = "parent_id", strategy=NOT_NULL)
+    @TableField(value = "parent_id", strategy=NOT_NULL,condition = SqlCondition.LIKE)
     private Integer parentId;
     @ApiModelProperty(value = "状态")
-    @TableField(value = "status", fill = FieldFill.INSERT)
+    @TableField(value = "status", fill = FieldFill.INSERT,condition = SqlCondition.EQUAL)
     private String status;
     @ApiModelProperty(value = "排序")
     @TableField("dict_order")

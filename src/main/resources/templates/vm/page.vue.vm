@@ -174,7 +174,7 @@
       handleSizeChange(val) {
         // console.log(`每页 ${val} 条`);
         let param = {}
-        param.condition = this.searchForm
+        param.t = this.searchForm
         param.current = this.currentPage
         param.size = val
         this.getListByPageParam(param);
@@ -182,7 +182,7 @@
       handleCurrentChange(val) {
         // console.log(`当前页: ${val}`);
         let param = {}
-        param.condition = this.searchForm
+        param.t = this.searchForm
         param.current = val
         param.size = this.pagesize
         this.getListByPageParam(param);
@@ -205,7 +205,7 @@
       },
       reflushTable(){
         let param = {}
-        param.sysUser = this.searchForm
+        param.t = this.searchForm
         param.current = this.currentPage
         param.size = this.pagesize
         this.getListByPageParam(param);

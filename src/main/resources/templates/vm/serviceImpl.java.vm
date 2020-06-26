@@ -30,11 +30,8 @@ import ${basePackage}.base.BasePage;
 @Service
 public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
     public List<${entity}> list(List${entity}Req req){
-        String keyword = req.getKeyword();
-        EntityWrapper<${entity}> queryWrapper = new EntityWrapper<>();
-        if (!StringUtils.isEmpty(keyword)) {
-            queryWrapper.like("", req.getKeyword());
-        }
+        SysDict t = req.getT();
+        EntityWrapper<SysDict> queryWrapper = new EntityWrapper<>();
         return baseMapper.selectList(queryWrapper);
     }
     public Page page(Page${entity}Req req){
@@ -44,9 +41,10 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
 		if(null != t){
 			//条件
 		}
-        if(baseMapper.selectPage(page, queryWrapper) != null) {
-            page.setRecords(baseMapper.selectPage(page, queryWrapper));
-            page.setTotal(baseMapper.selectCount(queryWrapper));
+        List<${entity}> records = baseMapper.selectPage(page, queryWrapper);
+        if(records != null) {
+        page.setRecords(records);
+        page.setTotal(baseMapper.selectCount(queryWrapper));
         }
         return page;
     }

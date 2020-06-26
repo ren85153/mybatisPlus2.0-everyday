@@ -28,27 +28,42 @@ import com.happy.everyday.base.BasePage;
 */
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+
+
     public List<SysUser> list(ListSysUserReq req){
-        String keyword = req.getKeyword();
+        SysUser t = req.getT();
         EntityWrapper<SysUser> queryWrapper = new EntityWrapper<>();
-        if (!StringUtils.isEmpty(keyword)) {
-            queryWrapper.like("", req.getKeyword());
+        if(null != t) {
+            //条件
+            queryWrapper.like(!StringUtils.isEmpty(t.getUserName()), "user_name", t.getUserName())
+                    .like(!StringUtils.isEmpty(t.getEmail()), "email", t.getEmail())
+                    .like(!StringUtils.isEmpty(t.getTelephone()), "telephone", t.getTelephone())
+                    .eq(!StringUtils.isEmpty(t.getSex()), "sex", t.getSex())
+                    .eq(!StringUtils.isEmpty(t.getStatus()), "status", t.getStatus());
         }
         return baseMapper.selectList(queryWrapper);
     }
+
     public Page page(PageSysUserReq req){
     	SysUser t = req.getT();
         Page page = new Page<>(req.getCurrent(), req.getSize());
         EntityWrapper<SysUser> queryWrapper = new EntityWrapper<>();
 		if(null != t){
 			//条件
+            queryWrapper.like(!StringUtils.isEmpty(t.getUserName()),"user_name",t.getUserName())
+                    .like(!StringUtils.isEmpty(t.getEmail()),"email",t.getEmail())
+                    .like(!StringUtils.isEmpty(t.getTelephone()),"telephone",t.getTelephone())
+                    .eq(!StringUtils.isEmpty(t.getSex()),"sex",t.getSex())
+                    .eq(!StringUtils.isEmpty(t.getStatus()),"status",t.getStatus());
 		}
-        if(baseMapper.selectPage(page, queryWrapper) != null) {
-            page.setRecords(baseMapper.selectPage(page, queryWrapper));
-            page.setTotal(baseMapper.selectPage(page, queryWrapper).size());
+        List<SysUser> records = baseMapper.selectPage(page, queryWrapper);
+        if(records != null) {
+            page.setRecords(records);
+            page.setTotal(baseMapper.selectCount(queryWrapper));
         }
         return page;
     }
+
     public int add(AddSysUserReq req){
         SysUser data = new  SysUser();
         BeanUtils.copyProperties(req.getT(), data);
@@ -56,17 +71,21 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         baseMapper.insert(data);
         return data.getId();
     }
+
     public int modify(UpdateSysUserReq req){
         SysUser data = new  SysUser();
         BeanUtils.copyProperties(req.getT(), data);
         data.setUpdateTime(new Date());
         return baseMapper.updateById(data);
     }
+
     public int delete(Integer id){
         return baseMapper.deleteById(id);
 
     }
+
     public SysUser get(Integer id){
         return baseMapper.selectById(id);
     }
+
 }

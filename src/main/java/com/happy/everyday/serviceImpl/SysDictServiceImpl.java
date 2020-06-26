@@ -29,10 +29,16 @@ import com.happy.everyday.base.BasePage;
 @Service
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> implements SysDictService {
     public List<SysDict> list(ListSysDictReq req){
-        String keyword = req.getKeyword();
+        SysDict t = req.getT();
         EntityWrapper<SysDict> queryWrapper = new EntityWrapper<>();
-        if (!StringUtils.isEmpty(keyword)) {
-            queryWrapper.like("", req.getKeyword());
+        if(null != t){
+            //条件
+            queryWrapper.eq(!StringUtils.isEmpty(t.getGroupCode()),"group_code",t.getGroupCode())
+                    .like(!StringUtils.isEmpty(t.getDictName()),"dict_name",t.getDictName())
+                    .eq(!StringUtils.isEmpty(t.getDictCode()),"dict_code",t.getDictCode())
+                    .eq(!StringUtils.isEmpty(t.getParentId()),"parent_id",t.getParentId())
+                    .like(!StringUtils.isEmpty(t.getGroupName()),"group_name",t.getGroupName())
+                    .eq(!StringUtils.isEmpty(t.getStatus()),"status",t.getStatus());
         }
         return baseMapper.selectList(queryWrapper);
     }
@@ -42,9 +48,16 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
         EntityWrapper<SysDict> queryWrapper = new EntityWrapper<>();
 		if(null != t){
 			//条件
+            queryWrapper.eq(!StringUtils.isEmpty(t.getGroupCode()),"group_code",t.getGroupCode())
+                    .like(!StringUtils.isEmpty(t.getDictName()),"dict_name",t.getDictName())
+                    .eq(!StringUtils.isEmpty(t.getDictCode()),"dict_code",t.getDictCode())
+                    .eq(!StringUtils.isEmpty(t.getParentId()),"parent_id",t.getParentId())
+                    .like(!StringUtils.isEmpty(t.getGroupName()),"group_name",t.getGroupName())
+                    .eq(!StringUtils.isEmpty(t.getStatus()),"status",t.getStatus());
 		}
-        if(baseMapper.selectPage(page, queryWrapper) != null) {
-            page.setRecords(baseMapper.selectPage(page, queryWrapper));
+        List<SysDict> records = baseMapper.selectPage(page, queryWrapper);
+        if(records != null) {
+            page.setRecords(records);
             page.setTotal(baseMapper.selectCount(queryWrapper));
         }
         return page;
