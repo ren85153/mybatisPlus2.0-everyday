@@ -1,5 +1,6 @@
 package com.happy.everyday.serviceImpl;
 
+import com.happy.everyday.entity.SysUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -29,10 +30,14 @@ import com.happy.everyday.base.BasePage;
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
     public List<SysMenu> list(ListSysMenuReq req){
-        String keyword = req.getKeyword();
+        SysMenu t = req.getT();
         EntityWrapper<SysMenu> queryWrapper = new EntityWrapper<>();
-        if (!StringUtils.isEmpty(keyword)) {
-            queryWrapper.like("", req.getKeyword());
+        if(null != t) {
+            //条件
+            queryWrapper.like(!StringUtils.isEmpty(t.getMenuName()), "menu_name", t.getMenuName())
+                    .eq(!StringUtils.isEmpty(t.getMenuType()), "menu_type", t.getMenuType())
+                    .like(!StringUtils.isEmpty(t.getMenuLevel()), "menu_level", t.getMenuLevel())
+                    .eq(!StringUtils.isEmpty(t.getStatus()), "status", t.getStatus());
         }
         return baseMapper.selectList(queryWrapper);
     }

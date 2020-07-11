@@ -1,5 +1,6 @@
 package com.happy.everyday.serviceImpl;
 
+import com.happy.everyday.entity.SysUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -29,10 +30,13 @@ import com.happy.everyday.base.BasePage;
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
     public List<SysRole> list(ListSysRoleReq req){
-        String keyword = req.getKeyword();
+        SysRole t = req.getT();
         EntityWrapper<SysRole> queryWrapper = new EntityWrapper<>();
-        if (!StringUtils.isEmpty(keyword)) {
-            queryWrapper.like("", req.getKeyword());
+        if(null != t) {
+            //条件
+            queryWrapper.like(!StringUtils.isEmpty(t.getRoleName()), "role_name", t.getRoleName())
+                    .like(!StringUtils.isEmpty(t.getRoleCode()), "role_code", t.getRoleCode())
+                    .eq(!StringUtils.isEmpty(t.getStatus()), "status", t.getStatus());
         }
         return baseMapper.selectList(queryWrapper);
     }
@@ -40,12 +44,16 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     	SysRole t = req.getT();
         Page page = new Page<>(req.getCurrent(), req.getSize());
         EntityWrapper<SysRole> queryWrapper = new EntityWrapper<>();
-		if(null != t){
-			//条件
-		}
-        if(baseMapper.selectPage(page, queryWrapper) != null) {
-            page.setRecords(baseMapper.selectPage(page, queryWrapper));
-            page.setTotal(baseMapper.selectPage(page, queryWrapper).size());
+        if(null != t) {
+            //条件
+            queryWrapper.like(!StringUtils.isEmpty(t.getRoleName()), "role_name", t.getRoleName())
+                    .like(!StringUtils.isEmpty(t.getRoleCode()), "role_code", t.getRoleCode())
+                    .eq(!StringUtils.isEmpty(t.getStatus()), "status", t.getStatus());
+        }
+        List<SysRole> records = baseMapper.selectPage(page, queryWrapper);
+        if(records != null) {
+            page.setRecords(records);
+            page.setTotal(baseMapper.selectCount(queryWrapper));
         }
         return page;
     }
