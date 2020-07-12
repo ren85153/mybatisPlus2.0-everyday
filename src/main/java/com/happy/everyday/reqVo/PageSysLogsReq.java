@@ -18,7 +18,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 */
 @Data
 @ApiModel(value = "ListSysLogs列表请求对象", description = "")
-public class PageSysLogsReq extends Page<SysLogs> implements Serializable {
+public class PageSysLogsReq implements Serializable {
 	private static final long serialVersionUID = 1L;
     private SysLogs t;
+    private int currentPage;
+    private int pageSize;
 }

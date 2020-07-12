@@ -36,7 +36,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     }
     public Page page(Page${entity}Req req){
     	${entity} t = req.getT();
-        Page page = new Page<>(req.getCurrent(), req.getSize());
+        Page page = new Page<>(req.getCurrentPage(), req.getPageSize());
         EntityWrapper<${entity}> queryWrapper = new EntityWrapper<>();
 		if(null != t){
 			//条件

@@ -46,7 +46,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     public Page page(PageSysUserReq req){
     	SysUser t = req.getT();
-        Page page = new Page<>(req.getCurrent(), req.getSize());
+        Page page = new Page<>(req.getCurrentPage(), req.getPageSize());
         EntityWrapper<SysUser> queryWrapper = new EntityWrapper<>();
 		if(null != t){
 			//条件

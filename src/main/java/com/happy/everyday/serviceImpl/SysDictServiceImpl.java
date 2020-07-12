@@ -44,7 +44,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     }
     public Page page(PageSysDictReq req){
     	SysDict t = req.getT();
-        Page page = new Page<>(req.getCurrent(), req.getSize());
+        Page page = new Page<>(req.getCurrentPage(), req.getPageSize());
         EntityWrapper<SysDict> queryWrapper = new EntityWrapper<>();
 		if(null != t){
 			//条件

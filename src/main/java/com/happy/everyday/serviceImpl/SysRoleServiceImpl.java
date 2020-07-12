@@ -42,7 +42,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
     public Page page(PageSysRoleReq req){
     	SysRole t = req.getT();
-        Page page = new Page<>(req.getCurrent(), req.getSize());
+        Page page = new Page<>(req.getCurrentPage(), req.getPageSize());
         EntityWrapper<SysRole> queryWrapper = new EntityWrapper<>();
         if(null != t) {
             //条件

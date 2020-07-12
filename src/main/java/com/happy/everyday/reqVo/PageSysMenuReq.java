@@ -18,7 +18,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 */
 @Data
 @ApiModel(value = "ListSysMenu列表请求对象", description = "")
-public class PageSysMenuReq extends Page<SysMenu> implements Serializable {
+public class PageSysMenuReq  implements Serializable {
 	private static final long serialVersionUID = 1L;
     private SysMenu t;
+    private int currentPage;
+    private int pageSize;
 }

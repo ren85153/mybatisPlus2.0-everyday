@@ -26,8 +26,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 * @since ${date}
 */
 @Data
-@ApiModel(value = "List${entity}列表请求对象", description = "$!{table.comment}")
-public class Page${entity}Req extends Page<${entity}> implements Serializable {
+@ApiModel(value = "${entity}分页请求对象", description = "$!{table.comment}")
+public class Page${entity}Req implements Serializable {
 	private static final long serialVersionUID = 1L;
     private ${entity} t;
+    private int currentPage;
+    private int pageSize;
 }

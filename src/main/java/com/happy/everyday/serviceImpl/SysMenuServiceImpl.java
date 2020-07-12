@@ -43,14 +43,19 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
     public Page page(PageSysMenuReq req){
     	SysMenu t = req.getT();
-        Page page = new Page<>(req.getCurrent(), req.getSize());
+        Page page = new Page<>(req.getCurrentPage(), req.getPageSize());
         EntityWrapper<SysMenu> queryWrapper = new EntityWrapper<>();
 		if(null != t){
-			//条件
+            //条件
+            queryWrapper.like(!StringUtils.isEmpty(t.getMenuName()), "menu_name", t.getMenuName())
+                    .eq(!StringUtils.isEmpty(t.getMenuType()), "menu_type", t.getMenuType())
+                    .like(!StringUtils.isEmpty(t.getMenuLevel()), "menu_level", t.getMenuLevel())
+                    .eq(!StringUtils.isEmpty(t.getStatus()), "status", t.getStatus());
 		}
-        if(baseMapper.selectPage(page, queryWrapper) != null) {
-            page.setRecords(baseMapper.selectPage(page, queryWrapper));
-            page.setTotal(baseMapper.selectPage(page, queryWrapper).size());
+        List<SysMenu> records = baseMapper.selectPage(page, queryWrapper);
+        if(records != null) {
+            page.setRecords(records);
+            page.setTotal(baseMapper.selectCount(queryWrapper));
         }
         return page;
     }

@@ -1,5 +1,6 @@
 package com.happy.everyday.serviceImpl;
 
+import com.happy.everyday.entity.SysUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -29,23 +30,29 @@ import com.happy.everyday.base.BasePage;
 @Service
 public class SysLogsServiceImpl extends ServiceImpl<SysLogsMapper, SysLogs> implements SysLogsService {
     public List<SysLogs> list(ListSysLogsReq req){
-        String keyword = req.getKeyword();
+        SysLogs t = req.getT();
         EntityWrapper<SysLogs> queryWrapper = new EntityWrapper<>();
-        if (!StringUtils.isEmpty(keyword)) {
-            queryWrapper.like("", req.getKeyword());
+        if(null != t) {
+            //条件
+//            queryWrapper.like(!StringUtils.isEmpty(t.getUserName()), "user_name", t.getUserName())
+//                    .like(!StringUtils.isEmpty(t.getEmail()), "email", t.getEmail())
+//                    .like(!StringUtils.isEmpty(t.getTelephone()), "telephone", t.getTelephone())
+//                    .eq(!StringUtils.isEmpty(t.getSex()), "sex", t.getSex())
+//                    .eq(!StringUtils.isEmpty(t.getStatus()), "status", t.getStatus());
         }
         return baseMapper.selectList(queryWrapper);
     }
     public Page page(PageSysLogsReq req){
     	SysLogs t = req.getT();
-        Page page = new Page<>(req.getCurrent(), req.getSize());
+        Page page = new Page<>(req.getCurrentPage(), req.getPageSize());
         EntityWrapper<SysLogs> queryWrapper = new EntityWrapper<>();
 		if(null != t){
 			//条件
 		}
-        if(baseMapper.selectPage(page, queryWrapper) != null) {
-            page.setRecords(baseMapper.selectPage(page, queryWrapper));
-            page.setTotal(baseMapper.selectPage(page, queryWrapper).size());
+        List<SysLogs> records = baseMapper.selectPage(page, queryWrapper);
+        if(records != null) {
+            page.setRecords(records);
+            page.setTotal(baseMapper.selectCount(queryWrapper));
         }
         return page;
     }

@@ -18,7 +18,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 */
 @Data
 @ApiModel(value = "ListSysDict列表请求对象", description = "")
-public class PageSysDictReq extends Page<SysDict> implements Serializable {
+public class PageSysDictReq implements Serializable {
 	private static final long serialVersionUID = 1L;
     private SysDict t;
+    private int currentPage;
+    private int pageSize;
 }

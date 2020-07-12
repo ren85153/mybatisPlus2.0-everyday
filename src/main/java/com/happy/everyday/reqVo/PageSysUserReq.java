@@ -18,7 +18,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 */
 @Data
 @ApiModel(value = "ListSysUser列表请求对象", description = "")
-public class PageSysUserReq extends Page<SysUser> implements Serializable {
+public class PageSysUserReq  implements Serializable {
 	private static final long serialVersionUID = 1L;
     private SysUser t;
+    private int currentPage;
+    private int pageSize;
 }
