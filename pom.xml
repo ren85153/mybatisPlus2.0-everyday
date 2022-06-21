@@ -20,7 +20,7 @@
         <java.version>1.8</java.version>
         <log4j.version>1.2.17</log4j.version>
         <druid.version>1.0.26</druid.version>
-        <mysql.version>5.1.47</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <mybatis-plus.version>2.1.9</mybatis-plus.version>
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
     </properties>
